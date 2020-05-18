@@ -33,7 +33,6 @@ class CreateTableView(viewsets.ViewSet):
 
         c = connections['default'].cursor()
         try:
-            print(sql)
             c.execute(sql)
             message = "Done... The Table "+nameTab+" has been created!!!"
         except:
@@ -64,15 +63,15 @@ class InsertDataView(viewsets.ViewSet):
         for key in record.keys():
             fields.append(key)
             values.append(record[key])
-        
-        print(values)
 
         fields_complement = ', '.join( str(a) for a in fields )
 
         for a in values:
-            values_complement += " '"+str(a)+"', " if type(a) == str else " "+str(a)+", "
+            values_complement += " '"+str(a)+"', " if type(a) == str \
+                else " "+str(a)+", "
 
-        sql += "( "+fields_complement+" ) VALUES ( "+values_complement[:-2]+" );" 
+        sql += ("( "+fields_complement+" ) VALUES ( "+
+                values_complement[:-2]+" );") 
 
         c = connections['default'].cursor()
         try:
@@ -82,9 +81,6 @@ class InsertDataView(viewsets.ViewSet):
             message = "Failed Operation"
         finally:
             c.close()
-
-        print(message)
-
 
         return Response(message)
 
@@ -100,7 +96,8 @@ class GetDataView(viewsets.ViewSet):
         nameTab = request.data['name_tab']
         fields = request.data['fields']
 
-        sql = "SELECT "+', '.join( str(a) for a in fields )+" FROM "+nameTab+";"
+        sql = ("SELECT "+', '.join( str(a) for a in fields )+
+                +" FROM "+nameTab+";")
 
         c = connections['default'].cursor()
         try:
@@ -167,9 +164,9 @@ class DeleteTableView(viewsets.ViewSet):
         c = connections['default'].cursor()
         try:
             c.execute(sql)
-            message = 'Hecho'
+            message = 'Done... the table '+nameTab+' has deleted'
         except:
-            message = 'Hubo un error'
+            message = 'An error has ocurred!'
         finally:
             c.close()
         return Response(message)

@@ -19,12 +19,18 @@ from rest_framework import routers
 from api import views
 
 router = routers.DefaultRouter()
-router.register(r'create-table', views.CreateTableView, basename='create-table')
-router.register(r'insert-data', views.InsertDataView, basename='insert-data')
-router.register(r'get-data', views.GetDataView, basename='get-data')
-router.register(r'list-tables', views.ListTablesView, basename='list-tables')
-router.register(r'info-table', views.InfoTableView, basename='info-table')
-router.register(r'drop-table', views.DeleteTableView, basename='drop-table')
+router.register(r'create-table', views.CreateTableView, 
+                basename='create-table')
+router.register(r'insert-data', views.InsertDataView, 
+                basename='insert-data')
+router.register(r'get-data', views.GetDataView, 
+                basename='get-data')
+router.register(r'list-tables', views.ListTablesView, 
+                basename='list-tables')
+router.register(r'info-table', views.InfoTableView, 
+                basename='info-table')
+router.register(r'drop-table', views.DeleteTableView, 
+                basename='drop-table')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
