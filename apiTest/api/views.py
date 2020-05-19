@@ -96,11 +96,7 @@ class GetDataView(viewsets.ViewSet):
         nameTab = request.data['name_tab']
         fields = request.data['fields']
 
-        print(nameTab)
-        print(fields)
-
         filters = ', '.join( str(a) for a in fields )
-        print(filters)
 
         sql = "SELECT "+filters+" FROM "+nameTab+";"
 
